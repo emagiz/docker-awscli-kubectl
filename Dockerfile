@@ -10,7 +10,7 @@ RUN apt-get -yq update \
 RUN apt-get -yq update \
     && apt-get -yq install ca-certificates curl gnupg lsb-release wget \ 
     && apt-get -yq install python3 python3-pip \
-	&& apt-get -yq install helm
+	&& apt-get -yq install helm=3.9.4-1
 
 RUN pip3 install --no-cache-dir --upgrade pip \
     && pip3 install --no-cache-dir --upgrade awscli

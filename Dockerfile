@@ -1,13 +1,16 @@
-FROM ibm-semeru-runtimes:open-8u322-b06-jdk-focal
+FROM ibm-semeru-runtimes:open-11.0.15_10-jdk-focal
+
+#prepare the apt-get install helm
+RUN apt-get -yq update \
+	&& apt-get -yq install gpg \
+	&& curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null \
+	&& apt-get install apt-transport-https --yes \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
 
 RUN apt-get -yq update \
     && apt-get -yq install ca-certificates curl gnupg lsb-release wget \ 
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
-    && apt-get -yq update \
-    && apt-get -yq upgrade \
     && apt-get -yq install python3 python3-pip \
-    && apt-get -yq clean
+	&& apt-get -yq install helm
 
 RUN pip3 install --no-cache-dir --upgrade pip \
     && pip3 install --no-cache-dir --upgrade awscli

@@ -19,3 +19,5 @@ RUN wget -q https://storage.googleapis.com/kubernetes-release/release/$(wget -q 
     && chmod +x ./kubectl \ 
     && mv ./kubectl /usr/local/bin/kubectl \
     && mkdir -p ~/.kube
+
+COPY --chmod=755 ./aws-oidc-auth.sh /usr/local/bin

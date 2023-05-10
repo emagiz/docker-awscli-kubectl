@@ -1,4 +1,4 @@
-FROM ibm-semeru-runtimes:open-11.0.17_8-jdk-focal
+FROM ibm-semeru-runtimes:open-11.0.18_10-jdk-jammy
 
 #prepare the apt-get install helm
 RUN apt-get -yq update \
